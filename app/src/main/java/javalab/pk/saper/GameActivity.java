@@ -33,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
                 buttons.get(i).add(new ImageButton(this));
 
                 buttons.get(i).get(j).setImageResource(R.mipmap.ic_launcher);
-                buttons.get(i).get(j).setId(j + 1 + (i * 4));
+                buttons.get(i).get(j).setId(j + 1 + (i * 10));
                 row.addView(buttons.get(i).get(j));
             }
 
