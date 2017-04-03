@@ -6,7 +6,9 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -23,15 +25,18 @@ public class GameActivity extends AppCompatActivity {
 
         buttons = new Vector<>();
 
-        TableLayout layout = (TableLayout) findViewById(R.id.game_layout);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
 
-        for (int i = 0; i < 8; i++) {
-            TableRow row = new TableRow(this);
+        for (int i = 0; i < 6; i++) {
+            LinearLayout row = new LinearLayout(this);
             buttons.add(new Vector<ImageButton>());
 
-            for (int j = 0; j <5; j++) {
+            for (int j = 0; j <6; j++) {
                 buttons.get(i).add(new ImageButton(this));
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                p.weight = 1;
 
+                buttons.get(i).get(j).setLayoutParams(p);
                 buttons.get(i).get(j).setImageResource(R.mipmap.ic_launcher);
                 buttons.get(i).get(j).setId(j + 1 + (i * 10));
                 row.addView(buttons.get(i).get(j));
