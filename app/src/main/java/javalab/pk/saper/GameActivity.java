@@ -5,18 +5,17 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import java.util.Vector;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Vector<Vector<ImageButton>> buttons;
+    Vector<ImageButton> buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +28,26 @@ public class GameActivity extends AppCompatActivity {
 
         for (int i = 0; i < 6; i++) {
             LinearLayout row = new LinearLayout(this);
-            buttons.add(new Vector<ImageButton>());
 
             for (int j = 0; j <6; j++) {
-                buttons.get(i).add(new ImageButton(this));
+                buttons.add(new ImageButton(this));
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 p.weight = 1;
 
-                buttons.get(i).get(j).setLayoutParams(p);
-                buttons.get(i).get(j).setImageResource(R.mipmap.ic_launcher);
-                buttons.get(i).get(j).setId(j + 1 + (i * 10));
-                row.addView(buttons.get(i).get(j));
+                buttons.get(j + 6*i).setLayoutParams(p);
+                buttons.get(j + 6*i).setImageResource(R.mipmap.square);
+                buttons.get(j + 6*i).setId(j + 6*i);
+                buttons.get(j + 6*i).setOnClickListener(this);
+                row.addView(buttons.get(j + 6*i));
             }
 
             layout.addView(row);
         }
+    }
 
+    @Override
+    public void onClick(View view) {
+        buttons.get(view.getId()).setImageResource(R.mipmap.ic_launcher);
     }
 
     @Override
