@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import java.util.StringTokenizer;
+import java.util.Iterator;
 import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
@@ -38,21 +38,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
 
-        for (int i = 0; i < 6; i++) {
+        Iterator itx = board.iterator();
+
+        int x=0, y=0;
+        while(itx.hasNext()) {
             LinearLayout row = new LinearLayout(this);
             buttons.add(new Vector<ImageButton>());
             for (int j = 0; j < 6; j++) {
-                buttons.get(i).add(new ImageButton(this));
+                buttons.get(x).add(new ImageButton(this));
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 p.weight = 1;
 
-                buttons.get(i).get(j).setLayoutParams(p);
-                buttons.get(i).get(j).setImageResource(R.mipmap.square);
-                buttons.get(i).get(j).setId(10*i + j);
-                buttons.get(i).get(j).setOnClickListener(this);
-                row.addView(buttons.get(i).get(j));
+                buttons.get(x).get(j).setLayoutParams(p);
+                buttons.get(x).get(j).setImageResource(R.mipmap.square);
+                buttons.get(x).get(j).setId(10*x + j);
+                buttons.get(x).get(j).setOnClickListener(this);
+                row.addView(buttons.get(x).get(j));
             }
-
+            itx.next();
+            x++;
             layout.addView(row);
         }
     }
