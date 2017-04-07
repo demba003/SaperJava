@@ -30,21 +30,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttons = new Vector<>();
         board = new Vector<>();
         Random rnd = new Random();
-        int bombcount = 0;
+
         for (int i=0; i<6; i++){
             board.add(new Vector<Pole>());
             for (int j=0; j<6; j++) {
-                boolean randx = rnd.nextBoolean();
-                boolean randy = rnd.nextBoolean();
-                if (randx==true && randy==false && (bombcount < 6)){
-                    board.get(i).add(new Bomba());
-                    bombcount++;
-                }
-                else
-                    board.get(i).add(new OdkrytePole());
+                board.get(i).add(new OdkrytePole());
             }
         }
 
+        int bombcount = 0;
+        for (int i=0; i<6; i++) {
+            for (int j = 0; j < 6; j++) {
+                boolean randx = rnd.nextBoolean();
+                boolean randy = rnd.nextBoolean();
+                if (randx==true && randy==false && (bombcount < 6)) {
+                    board.get(i).set(j,(new Bomba()));
+                    bombcount++;
+                }
+            }
+        }
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
 
         Iterator itx = board.iterator();
@@ -59,7 +63,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 p.weight = 1;
 
                 buttons.get(x).get(j).setLayoutParams(p);
+                buttons.get(x).get(j).setBackground(null);
                 buttons.get(x).get(j).setImageResource(R.mipmap.squareblank);
+
                 buttons.get(x).get(j).setId(10*x + j);
                 buttons.get(x).get(j).setOnClickListener(this);
                 row.addView(buttons.get(x).get(j));
