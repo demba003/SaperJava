@@ -11,11 +11,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.util.Iterator;
 import java.util.Vector;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Vector<ImageButton> buttons;
+    Vector<Vector<ImageButton>> buttons;
+    Vector<Vector<Pole>> board;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,31 +25,47 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         buttons = new Vector<>();
+        board = new Vector<>();
+
+        for (int i=0; i<6; i++){
+            board.add(new Vector<Pole>());
+            for (int j=0; j<6; j++)
+                if(j%2==0)
+                    board.get(i).add(new Bomba());
+                else
+                    board.get(i).add(new ZwyklePole());
+        }
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
 
-        for (int i = 0; i < 6; i++) {
-            LinearLayout row = new LinearLayout(this);
+        Iterator itx = board.iterator();
 
-            for (int j = 0; j <6; j++) {
-                buttons.add(new ImageButton(this));
+        int x=0, y=0;
+        while(itx.hasNext()) {
+            LinearLayout row = new LinearLayout(this);
+            buttons.add(new Vector<ImageButton>());
+            for (int j = 0; j < 6; j++) {
+                buttons.get(x).add(new ImageButton(this));
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 p.weight = 1;
 
-                buttons.get(j + 6*i).setLayoutParams(p);
-                buttons.get(j + 6*i).setImageResource(R.mipmap.square);
-                buttons.get(j + 6*i).setId(j + 6*i);
-                buttons.get(j + 6*i).setOnClickListener(this);
-                row.addView(buttons.get(j + 6*i));
+                buttons.get(x).get(j).setLayoutParams(p);
+                buttons.get(x).get(j).setImageResource(R.mipmap.square);
+                buttons.get(x).get(j).setId(10*x + j);
+                buttons.get(x).get(j).setOnClickListener(this);
+                row.addView(buttons.get(x).get(j));
             }
-
+            itx.next();
+            x++;
             layout.addView(row);
         }
     }
 
     @Override
     public void onClick(View view) {
-        buttons.get(view.getId()).setImageResource(R.mipmap.ic_launcher);
+        int x = view.getId() / 10;
+        int y = view.getId() % 10;
+        buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
     }
 
     @Override
