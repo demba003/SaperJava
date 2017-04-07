@@ -52,17 +52,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        int bombcount = 0;
         for (int i=0; i<6; i++) {
-            for (int j = 0; j < 6; j++) {
-                boolean randx = rnd.nextBoolean();
-                boolean randy = rnd.nextBoolean();
-                if (randx==true && randy==false && (bombcount < 6)) {
-                    board.get(i).set(j,(new Bomba()));
-                    bombcount++;
-                }
+            int x = rnd.nextInt(6);
+            int y = rnd.nextInt(6);
+            if(board.get(x).get(y) instanceof Bomba)  {
+                i--;
             }
+            board.get(x).set(y, (new Bomba()));
         }
+
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
         customHandler.postDelayed(updateTimerThread, 0);
         Iterator itx = board.iterator();
