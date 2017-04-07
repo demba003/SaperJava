@@ -61,7 +61,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             board.get(x).set(y, (new Bomba()));
         }
 
-
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
         customHandler.postDelayed(updateTimerThread, 0);
         Iterator itx = board.iterator();
