@@ -13,11 +13,14 @@ import android.widget.LinearLayout;
 
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
 
     Vector<Vector<ImageButton>> buttons;
     Vector<Vector<Pole>> board;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +29,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         buttons = new Vector<>();
         board = new Vector<>();
-
+        Random rnd = new Random();
+        int bombcount = 0;
         for (int i=0; i<6; i++){
             board.add(new Vector<Pole>());
-            for (int j=0; j<6; j++)
-                if(j%2==0)
+            for (int j=0; j<6; j++) {
+                boolean randx = rnd.nextBoolean();
+                boolean randy = rnd.nextBoolean();
+                if (randx==true && randy==false && (bombcount < 6)){
                     board.get(i).add(new Bomba());
+                    bombcount++;
+                }
                 else
-                    board.get(i).add(new ZwyklePole());
+                    board.get(i).add(new OdkrytePole());
+            }
         }
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
@@ -50,7 +59,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 p.weight = 1;
 
                 buttons.get(x).get(j).setLayoutParams(p);
-                buttons.get(x).get(j).setImageResource(R.mipmap.square);
+                buttons.get(x).get(j).setImageResource(R.mipmap.squareblank);
                 buttons.get(x).get(j).setId(10*x + j);
                 buttons.get(x).get(j).setOnClickListener(this);
                 row.addView(buttons.get(x).get(j));
