@@ -1,6 +1,7 @@
 package javalab.pk.saper;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.Iterator;
 import java.util.Vector;
@@ -20,12 +22,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     Vector<Vector<ImageButton>> buttons;
     Vector<Vector<Pole>> board;
 
+    TextView czas;
+    int count = 0;
+    private Handler customHandler = new Handler();
 
+    private Runnable updateTimerThread = new Runnable() {
+        public void run() {
+            count++;
+            czas.setText(" Czas: " + String.valueOf(count));
+            customHandler.postDelayed(this, 1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        czas = (TextView) findViewById(R.id.czas);
 
         buttons = new Vector<>();
         board = new Vector<>();
@@ -50,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
-
+        customHandler.postDelayed(updateTimerThread, 0);
         Iterator itx = board.iterator();
 
         int x=0, y=0;
@@ -78,9 +92,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if(count==0)customHandler.postDelayed(updateTimerThread, 0);
         int x = view.getId() / 10;
         int y = view.getId() % 10;
         buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
+
     }
 
     @Override
