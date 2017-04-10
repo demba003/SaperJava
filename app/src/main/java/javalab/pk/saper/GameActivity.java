@@ -61,6 +61,67 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             board.get(x).set(y, (new Bomba()));
         }
 
+        int bombCount = 0;
+        for(int i=0; i<6; i++) {
+            for(int j=0; j<6; j++) {
+                bombCount = 0;
+                if(board.get(i).get(j).getClass() != Bomba.class) {
+                    try {
+                        if (board.get(i - 1).get(j - 1) instanceof Bomba) bombCount++;
+                    } catch (Exception e){}
+                    try{
+                       if (board.get(i).get(j - 1) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+                    try {
+                        if (board.get(i - 1).get(j) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+                    try {
+                        if (board.get(i + 1).get(j) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+                    try {
+                        if (board.get(i - 1).get(j + 1) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+                    try {
+                        if (board.get(i).get(j + 1) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+                    try {
+                        if (board.get(i + 1).get(j + 1) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+                    try {
+                        if (board.get(i + 1).get(j - 1) instanceof Bomba) bombCount++;
+                    } catch (Exception ex) {}
+
+                    switch (bombCount) {
+                        case 1:
+                            board.get(i).set(j, (new Pole1()));
+                            break;
+                        case 2:
+                            board.get(i).set(j, (new Pole2()));
+                            break;
+                        case 3:
+                            board.get(i).set(j, (new Pole3()));
+                            break;
+                        case 4:
+                            board.get(i).set(j, (new Pole4()));
+                            break;
+                        /*case 5:
+                            board.get(i).set(j, (new Pole5()));
+                            break;
+                        case 6:
+                            board.get(i).set(j, (new Pole6()));
+                            break;
+                        case 7:
+                            board.get(i).set(j, (new Pole7()));
+                            break;
+                        case 8:
+                            board.get(i).set(j, (new Pole8()));
+                            break;*/
+                    }
+                }
+            }
+        }
+
+
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
         customHandler.postDelayed(updateTimerThread, 0);
         Iterator itx = board.iterator();
@@ -94,7 +155,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int x = view.getId() / 10;
         int y = view.getId() % 10;
         buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
-
     }
 
     @Override
