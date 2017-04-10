@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Vector;
 import java.util.Random;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener{
+public class GameActivity extends AppCompatActivity implements View.OnClickListener,View.OnLongClickListener{
 
     Vector<Vector<ImageButton>> buttons;
     Vector<Vector<Pole>> board;
@@ -123,7 +123,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
         LinearLayout layout = (LinearLayout) findViewById(R.id.game_layout);
-        customHandler.postDelayed(updateTimerThread, 0);
+
         Iterator itx = board.iterator();
 
         int x=0, y=0;
@@ -141,6 +141,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 buttons.get(x).get(j).setId(10*x + j);
                 buttons.get(x).get(j).setOnClickListener(this);
+                buttons.get(x).get(j).setOnLongClickListener(this);
                 row.addView(buttons.get(x).get(j));
             }
             itx.next();
@@ -179,5 +180,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        if(count==0)customHandler.postDelayed(updateTimerThread, 0);
+        int x = view.getId() / 10;
+        int y = view.getId() % 10;
+        buttons.get(x).get(y).setImageResource(R.mipmap.flag);
+        return true;
     }
 }
