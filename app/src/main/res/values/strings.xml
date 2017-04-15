@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Saper</string>
+    <string name="title_activity_end">EndActivity</string>
 </resources>
