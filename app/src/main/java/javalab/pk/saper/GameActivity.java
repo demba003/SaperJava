@@ -24,15 +24,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView czas;
     int count = 0;
+    int wincond = 0; //Ilość pól pozostałych do wygranej
+
+
     private Handler customHandler = new Handler();
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
             count++;
             czas.setText(" Czas: " + String.valueOf(count));
-            customHandler.postDelayed(this, 1000);
+                        customHandler.postDelayed(this, 1000);
+
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         buttons = new Vector<>();
         board = new Vector<>();
         Random rnd = new Random();
+
 
         for (int i=0; i<6; i++){
             board.add(new Vector<Pole>());
@@ -155,7 +161,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(count==0)customHandler.postDelayed(updateTimerThread, 0);
         int x = view.getId() / 10;
         int y = view.getId() % 10;
+        if (board.get(x).get(y) instanceof Bomba){
+            wincond--;
+            Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
+            intentend.putExtra("wincond",wincond);
+            intentend.putExtra("count",count);
+            startActivity(intentend);
+        }
+        wincond++;
+        if(wincond>=30)
+        {
+
+            Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
+            intentend.putExtra("wincond",wincond);
+            intentend.putExtra("count",count);
+            startActivity(intentend);
+
+        }
         buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
+
     }
 
     @Override
