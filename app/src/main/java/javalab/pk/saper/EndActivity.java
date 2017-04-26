@@ -23,7 +23,7 @@ public class EndActivity extends AppCompatActivity {
         Button start = (Button) findViewById(R.id.replay);
         Button exit = (Button) findViewById(R.id.exit1);
 
-        czas2.setText("Twój czas wynosi: " + String.valueOf(count));
+        czas2.setText("Twój czas wynosi: " + String.valueOf(count) + "s");
         if(wincond>=30){
 
             win.setText("Wygrałeś!");
@@ -44,7 +44,7 @@ public class EndActivity extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                finish();
+                finishAffinity();
                 System.exit(0);
             }
         });
