@@ -63,6 +63,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         {
             buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
             board.get(x).get(y).isOpened = true;
+            wincond++;
             floodFill(x - 1, y);
             floodFill(x + 1, y);
             floodFill(x, y - 1);
@@ -203,7 +204,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             intentend.putExtra("count",count);
             startActivity(intentend);
         }
-        wincond++;
+
+        if(board.get(x).get(y) instanceof OdkrytePole) floodFill(x, y);
+        if(!board.get(x).get(y).isOpened) { board.get(x).get(y).isOpened = true; wincond++; }
+
         if(wincond>=30)
         {
 
@@ -214,12 +218,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if(board.get(x).get(y) instanceof OdkrytePole) floodFill(x, y);
-        if(!board.get(x).get(y).isOpened) board.get(x).get(y).isOpened = true;
-
         buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
-
-
 
     }
 
