@@ -1,6 +1,7 @@
 package javalab.pk.saper;
 
 import android.content.Intent;
+//import android.graphics.Point;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
@@ -14,8 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Iterator;
+//import java.util.LinkedList;
 import java.util.Vector;
 import java.util.Random;
+//import java.util.Queue;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener,View.OnLongClickListener{
 
@@ -38,6 +41,38 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
+
+    protected void floodFill(int x, int y) {
+        /* ZA POMOCA KOLEJKI, NA RAZIE NIE DZIALA :(
+        Queue<Point> floodQ = new LinkedList<Point>();
+        floodQ.add(new Point(x, y));
+        while(!floodQ.isEmpty()){
+            Point p = floodQ.poll();
+            if(p.x > 0 && p.x < 6 && p.y > 0 && p.y < 6 && board.get(p.x).get(p.y) instanceof OdkrytePole && !board.get(x).get(y).isOpened)
+            {
+                buttons.get(p.x).get(p.y).setImageResource(board.get(p.x).get(p.y).action());
+                board.get(x).get(y).isOpened = true;
+                floodQ.add(new Point(p.x - 1, p.y));
+                floodQ.add(new Point(p.x + 1, p.y));
+                floodQ.add(new Point(p.x, p.y - 1));
+                floodQ.add(new Point(p.x, p.y + 1));
+            }
+        }
+        */
+        if ( x >= 0 && x <6 && y >= 0 && y < 6 && board.get(x).get(y) instanceof OdkrytePole && !board.get(x).get(y).isOpened)
+        {
+            buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
+            board.get(x).get(y).isOpened = true;
+            wincond++;
+            floodFill(x - 1, y);
+            floodFill(x + 1, y);
+            floodFill(x, y - 1);
+            floodFill(x, y + 1);
+        }
+        else{
+                return;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +145,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         case 4:
                             board.get(i).set(j, (new Pole4()));
                             break;
-                        /*case 5:
+                        case 5:
                             board.get(i).set(j, (new Pole5()));
                             break;
                         case 6:
@@ -121,7 +156,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         case 8:
                             board.get(i).set(j, (new Pole8()));
-                            break;*/
+                            break;
                     }
                 }
             }
@@ -161,6 +196,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(count==0)customHandler.postDelayed(updateTimerThread, 0);
         int x = view.getId() / 10;
         int y = view.getId() % 10;
+
         if (board.get(x).get(y) instanceof Bomba){
             wincond--;
             Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
@@ -168,7 +204,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             intentend.putExtra("count",count);
             startActivity(intentend);
         }
-        wincond++;
+
+        if(board.get(x).get(y) instanceof OdkrytePole) floodFill(x, y);
+        if(!board.get(x).get(y).isOpened) { board.get(x).get(y).isOpened = true; wincond++; }
+
         if(wincond>=30)
         {
 
@@ -178,6 +217,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intentend);
 
         }
+
         buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
 
     }
