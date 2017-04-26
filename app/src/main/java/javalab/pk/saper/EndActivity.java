@@ -38,6 +38,7 @@ public class EndActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
