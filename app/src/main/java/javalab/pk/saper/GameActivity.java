@@ -203,6 +203,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             intentend.putExtra("wincond",wincond);
             intentend.putExtra("count",count);
             startActivity(intentend);
+            finish();
         }
 
         if(board.get(x).get(y) instanceof OdkrytePole) floodFill(x, y);
@@ -210,12 +211,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         if(wincond>=30)
         {
-
             Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
             intentend.putExtra("wincond",wincond);
             intentend.putExtra("count",count);
             startActivity(intentend);
-
+            finish();
         }
 
         buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
