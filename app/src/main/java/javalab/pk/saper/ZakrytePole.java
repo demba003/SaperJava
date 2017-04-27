@@ -1,6 +1,6 @@
 package javalab.pk.saper;
 
-public class ZwyklePole extends Pole {
+public class ZakrytePole extends Pole {
     @Override
     public int action() {
         return R.mipmap.squareblank;
