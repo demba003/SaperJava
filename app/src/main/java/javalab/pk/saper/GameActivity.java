@@ -7,7 +7,6 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -48,7 +47,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         floodQ.add(new Point(x, y));
         while(!floodQ.isEmpty()){
             Point p = floodQ.poll();
-            if(p.x > 0 && p.x < 6 && p.y > 0 && p.y < 6 && board.get(p.x).get(p.y) instanceof OdkrytePole && !board.get(x).get(y).isOpened)
+            if(p.x > 0 && p.x < 6 && p.y > 0 && p.y < 6 && board.get(p.x).get(p.y) instanceof PustePole && !board.get(x).get(y).isOpened)
             {
                 buttons.get(p.x).get(p.y).setImageResource(board.get(p.x).get(p.y).action());
                 board.get(x).get(y).isOpened = true;
@@ -59,15 +58,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         */
-        if ( x >= 0 && x <6 && y >= 0 && y < 6 && board.get(x).get(y) instanceof OdkrytePole && !board.get(x).get(y).isOpened)
-        {
-            buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
-            board.get(x).get(y).isOpened = true;
-            wincond++;
-            floodFill(x - 1, y);
-            floodFill(x + 1, y);
-            floodFill(x, y - 1);
-            floodFill(x, y + 1);
+        if (x >= 0 && x <6 && y >= 0 && y < 6 && !board.get(x).get(y).isOpened) {
+            if (board.get(x).get(y) instanceof PustePole) {
+                buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
+                board.get(x).get(y).isOpened = true;
+                wincond++;
+                floodFill(x - 1, y);
+                floodFill(x + 1, y);
+                floodFill(x, y - 1);
+                floodFill(x, y + 1);
+                floodFill(x + 1, y + 1);
+                floodFill(x - 1, y + 1);
+                floodFill(x - 1, y - 1);
+                floodFill(x + 1, y - 1);
+            }
+            if (board.get(x).get(y) instanceof PoleNumer){
+                buttons.get(x).get(y).setImageResource(board.get(x).get(y).action());
+                board.get(x).get(y).isOpened = true;
+                wincond++;
+            }
         }
         else{
                 return;
@@ -89,7 +98,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for (int i=0; i<6; i++){
             board.add(new Vector<Pole>());
             for (int j=0; j<6; j++) {
-                board.get(i).add(new OdkrytePole());
+                board.get(i).add(new PustePole());
             }
         }
 
@@ -206,7 +215,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             finish();
         }
 
-        if(board.get(x).get(y) instanceof OdkrytePole) floodFill(x, y);
+        if(board.get(x).get(y) instanceof PustePole) floodFill(x, y);
         if(!board.get(x).get(y).isOpened) { board.get(x).get(y).isOpened = true; wincond++; }
 
         if(wincond>=30)

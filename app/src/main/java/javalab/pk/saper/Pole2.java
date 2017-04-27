@@ -4,7 +4,7 @@ package javalab.pk.saper;
  * Created by Kamil on 2017-04-09.
  */
 
-public class Pole2 extends Pole {
+public class Pole2 extends PoleNumer {
     @Override
     public int action() {
         return R.mipmap.number_2;
