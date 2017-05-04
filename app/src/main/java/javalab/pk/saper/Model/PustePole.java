@@ -1,4 +1,6 @@
-package javalab.pk.saper;
+package javalab.pk.saper.Model;
+
+import javalab.pk.saper.R;
 
 /**
  * Created by khaeemm on 07.04.2017.
