@@ -1,6 +1,6 @@
-package javalab.pk.saper;
+package javalab.pk.saper.Model;
 
 public abstract class Pole {
-    boolean isOpened;
+    public boolean isOpened;
     public abstract int action();
 }

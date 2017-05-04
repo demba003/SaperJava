@@ -1,6 +1,6 @@
-package javalab.pk.saper;
+package javalab.pk.saper.Model;
 
-import android.util.Log;
+import javalab.pk.saper.R;
 
 public class Bomba extends Pole {
     @Override

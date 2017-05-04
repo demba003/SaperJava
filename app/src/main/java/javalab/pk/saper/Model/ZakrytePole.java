@@ -1,4 +1,6 @@
-package javalab.pk.saper;
+package javalab.pk.saper.Model;
+
+import javalab.pk.saper.R;
 
 public class ZakrytePole extends Pole {
     @Override
