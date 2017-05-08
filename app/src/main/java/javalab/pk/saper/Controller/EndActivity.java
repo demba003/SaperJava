@@ -1,7 +1,10 @@
 package javalab.pk.saper.Controller;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -23,16 +26,27 @@ public class EndActivity extends AppCompatActivity {
         TextView win = (TextView) findViewById(R.id.win);
         Button start = (Button) findViewById(R.id.replay);
         Button exit = (Button) findViewById(R.id.exit1);
-
+        String typ;
         czas2.setText("Twój czas wynosi: " + String.valueOf(count) + "s");
         if(wincond>=30){
 
             win.setText("Wygrałeś!");
+            typ="Wygrana";
         }
         else
         {
             win.setText("Przegrałeś!");
+            typ="Przegrana";
         }
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setPriority( NotificationCompat.PRIORITY_DEFAULT )
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Saper")
+                        .setContentText(typ + " - czas: " + String.valueOf(count) + "s");
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(count, mBuilder.build());
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
