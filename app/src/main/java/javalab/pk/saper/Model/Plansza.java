@@ -15,6 +15,10 @@ public class Plansza {
         return instance;
     }
 
+    public static void clear() {
+        instance = null;
+    }
+
     private Vector<Vector<Pole>> board;
 
     public void setPlanszaView(PlanszaView planszaView) {
