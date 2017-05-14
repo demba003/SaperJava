@@ -8,10 +8,12 @@ import java.util.Vector;
 import javalab.pk.saper.View.PlanszaView;
 
 public class Plansza {
-    //private static Plansza instance = ;
-    /*public static Plansza getInstance() {
+    private static Plansza instance = null;
+
+    public static Plansza get(Context context, int w, int h, int maxBombs) {
+        if (instance == null) instance = new Plansza(context, w, h, maxBombs);
         return instance;
-    }*/
+    }
 
     private Vector<Vector<Pole>> board;
 
@@ -46,11 +48,7 @@ public class Plansza {
         planszaView.open(x, y);
     }
 
-    public Plansza(Context ctx) {
-        this(ctx, 6, 6, 6);
-    }
-
-    public Plansza(Context context, int w, int h, int maxBombs) {
+    private Plansza(Context context, int w, int h, int maxBombs) {
         width = w;
         height = h;
         board = new Vector<>();
