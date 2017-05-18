@@ -37,7 +37,12 @@ public class EndActivity extends AppCompatActivity {
         }
         else
         {
-            win.setText(R.string.youlose);
+            if(wincond<2){
+                win.setText(R.string.easteregg);
+            }
+            else{
+                win.setText(R.string.youlose);
+            }
             typ = getString(R.string.youlose);
         }
 
