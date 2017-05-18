@@ -1,15 +1,9 @@
 package javalab.pk.saper;
 
-import android.app.Application;
-import android.content.Context;
-import android.test.AndroidTestCase;
-import android.test.ServiceTestCase;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.lang.reflect.Method;
 
 import javalab.pk.saper.Model.Plansza;
 
@@ -18,16 +12,13 @@ import static org.junit.Assert.*;
 /**
  * Created by Kamil on 2017-05-11.
  */
+
 public class PlanszaTest {
-   /* Plansza plansza;
+    private Plansza plansza;
+
     @Before
     public void setUp() throws Exception {
-        //plansza = Plansza.get(6, 6, 0);
-    }
-
-    @Test
-    public void get() throws Exception {
-
+        plansza = Plansza.get(6, 6, 0);
     }
 
     @Test
@@ -41,22 +32,12 @@ public class PlanszaTest {
     }
 
     @Test
-    public void getField() throws Exception {
-
-    }
-
-    @Test
     public void getOpened() throws Exception {
         assertEquals(0, plansza.getOpened());
     }
-
-    @Test
-    public void open() throws Exception {
-
+    
+    @After
+    public void tearDown() throws Exception {
+        Plansza.clear();
     }
-
-    @Test
-    public void floodFill() throws Exception {
-
-    }*/
 }
