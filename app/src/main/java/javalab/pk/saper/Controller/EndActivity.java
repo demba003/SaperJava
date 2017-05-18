@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.MessageFormat;
+
 import javalab.pk.saper.R;
 
 public class EndActivity extends AppCompatActivity {
@@ -19,7 +21,7 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
         Intent myintent = getIntent();
-        int count = myintent.getIntExtra("count",0);
+        int count = myintent.getIntExtra("timeCount",0);
         int wincond = myintent.getIntExtra("wincond",0);
 
         TextView czas2 = (TextView) findViewById(R.id.czas2);
@@ -27,24 +29,24 @@ public class EndActivity extends AppCompatActivity {
         Button start = (Button) findViewById(R.id.replay);
         Button exit = (Button) findViewById(R.id.exit1);
         String typ;
-        czas2.setText("Twój czas wynosi: " + String.valueOf(count) + "s");
+        czas2.setText(MessageFormat.format("{0} {1}s", getString(R.string.yourTime), String.valueOf(count)));
         if(wincond>=30){
 
-            win.setText("Wygrałeś!");
-            typ="Wygrana";
+            win.setText(R.string.youwin);
+            typ = getString(R.string.youwin);
         }
         else
         {
-            win.setText("Przegrałeś!");
-            typ="Przegrana";
+            win.setText(R.string.youlose);
+            typ = getString(R.string.youlose);
         }
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setPriority( NotificationCompat.PRIORITY_DEFAULT )
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Saper")
-                        .setContentText(typ + " - czas: " + String.valueOf(count) + "s");
+                        .setContentTitle(getString(R.string.app_name))
+                        .setContentText(typ + " - " + getString(R.string.time) + " " + String.valueOf(count) + "s");
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(count, mBuilder.build());
 
@@ -64,8 +66,5 @@ public class EndActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });
-
-
     }
-
 }

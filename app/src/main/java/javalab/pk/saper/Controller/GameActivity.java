@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.MessageFormat;
+
 import javalab.pk.saper.Model.Bomba;
 import javalab.pk.saper.Model.Plansza;
 import javalab.pk.saper.Model.PustePole;
@@ -21,15 +23,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     PlanszaView planszaView;
 
     TextView czas;
-    int count = 0;
+    int timeCount = 0;
 
     private Handler customHandler = new Handler();
 
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
-            count++;
-            czas.setText(" Czas: " + String.valueOf(count));
-                        customHandler.postDelayed(this, 1000);
+            timeCount++;
+            czas.setText(MessageFormat.format("{0} {1}", getString(R.string.time), String.valueOf(timeCount)));
+            customHandler.postDelayed(this, 1000);
         }
     };
 
@@ -47,7 +49,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(count==0) customHandler.postDelayed(updateTimerThread, 0);
+        if(timeCount ==0) customHandler.postDelayed(updateTimerThread, 0);
         int x = view.getId() / 10;
         int y = view.getId() % 10;
 
@@ -57,7 +59,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (plansza.getField(x,y) instanceof Bomba || plansza.getOpened() >= 30){
             Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
             intentend.putExtra("wincond",plansza.getOpened());
-            intentend.putExtra("count",count);
+            intentend.putExtra("timeCount", timeCount);
             startActivity(intentend);
             finish();
             Plansza.clear();
@@ -83,7 +85,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onLongClick(View view) {
-        if(count==0) customHandler.postDelayed(updateTimerThread, 0);
+        if(timeCount ==0) customHandler.postDelayed(updateTimerThread, 0);
         int x = view.getId() / 10;
         int y = view.getId() % 10;
         planszaView.markAsBomb(x, y);
