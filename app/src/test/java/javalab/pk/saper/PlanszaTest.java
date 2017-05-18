@@ -35,7 +35,7 @@ public class PlanszaTest {
     public void getOpened() throws Exception {
         assertEquals(0, plansza.getOpened());
     }
-    
+
     @After
     public void tearDown() throws Exception {
         Plansza.clear();

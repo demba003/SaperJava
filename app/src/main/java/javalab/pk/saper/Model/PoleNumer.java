@@ -1,6 +1,5 @@
 package javalab.pk.saper.Model;
 
-import android.content.Context;
 
 import javalab.pk.saper.R;
 
@@ -10,7 +9,6 @@ import javalab.pk.saper.R;
 
 public class PoleNumer extends Pole {
     private int number;
-    private Context context;
 
     public PoleNumer(int nr) {
         number = nr;

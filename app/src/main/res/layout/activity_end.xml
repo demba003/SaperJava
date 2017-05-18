@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.13"
-            android:text="wygrana"
+            android:text="@string/youwin"
             android:textAlignment="center"
             android:textSize="40sp" />
 
@@ -34,11 +34,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.07"
-            android:text="Twój Czas:"
+            android:text="@string/yourTime"
             android:textSize="24sp" />
 
         <Button
-            android:text="Zagraj Ponownie"
+            android:text="@string/playAgain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/replay" />
@@ -48,7 +48,7 @@
             android:id="@+id/exit1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wyjście" />
+            android:text="@string/exitGame" />
 
     </LinearLayout>
 </RelativeLayout>
