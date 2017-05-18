@@ -33,14 +33,20 @@ public class EndActivity extends AppCompatActivity {
             win.setText("Wygrałeś!");
             typ="Wygrana";
         }
+
         else
         {
-            win.setText("Przegrałeś!");
-            typ="Przegrana";
+            if(wincond<2){
+                win.setText("Gratuluje szczęścia! Przegrałeś xD");
+            }
+            else {
+
+                win.setText("Przegrałeś!");
+            }
+            typ = "Przegrana";
         }
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
+        NotificationCompat.Builder mBuilder =                new NotificationCompat.Builder(this)
                         .setPriority( NotificationCompat.PRIORITY_DEFAULT )
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Saper")
