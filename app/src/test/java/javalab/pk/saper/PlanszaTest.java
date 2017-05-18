@@ -19,15 +19,11 @@ import static org.junit.Assert.*;
  * Created by Kamil on 2017-05-11.
  */
 public class PlanszaTest {
-   /* Plansza plansza;
+    private Plansza plansza;
+
     @Before
     public void setUp() throws Exception {
-        //plansza = Plansza.get(6, 6, 0);
-    }
-
-    @Test
-    public void get() throws Exception {
-
+        plansza = Plansza.get(6, 6, 0);
     }
 
     @Test
@@ -41,22 +37,7 @@ public class PlanszaTest {
     }
 
     @Test
-    public void getField() throws Exception {
-
-    }
-
-    @Test
     public void getOpened() throws Exception {
         assertEquals(0, plansza.getOpened());
     }
-
-    @Test
-    public void open() throws Exception {
-
-    }
-
-    @Test
-    public void floodFill() throws Exception {
-
-    }*/
 }

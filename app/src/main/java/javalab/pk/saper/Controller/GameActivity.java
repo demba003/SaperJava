@@ -40,7 +40,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         czas = (TextView) findViewById(R.id.czas);
 
-        plansza = Plansza.get(this, 6, 6, 6);
+        plansza = Plansza.get(6, 6, 6);
         planszaView = new PlanszaView(this, plansza, this, this);
         plansza.setPlanszaView(planszaView);
     }

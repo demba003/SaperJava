@@ -1,7 +1,5 @@
 package javalab.pk.saper.Model;
 
-import android.content.Context;
-
 import java.util.Random;
 import java.util.Vector;
 
@@ -10,8 +8,8 @@ import javalab.pk.saper.View.PlanszaView;
 public class Plansza {
     private static Plansza instance = null;
 
-    public static Plansza get(Context context, int w, int h, int maxBombs) {
-        if (instance == null) instance = new Plansza(context, w, h, maxBombs);
+    public static Plansza get(int w, int h, int maxBombs) {
+        if (instance == null) instance = new Plansza(w, h, maxBombs);
         return instance;
     }
 
@@ -52,7 +50,7 @@ public class Plansza {
         planszaView.open(x, y);
     }
 
-    private Plansza(Context context, int w, int h, int maxBombs) {
+    private Plansza(int w, int h, int maxBombs) {
         width = w;
         height = h;
         board = new Vector<>();
@@ -88,7 +86,7 @@ public class Plansza {
                             }
                         }
                     }
-                    if (bombCount > 0) board.get(i).set(j, (new PoleNumer(context, bombCount)));
+                    if (bombCount > 0) board.get(i).set(j, (new PoleNumer(bombCount)));
                 }
             }
         }
