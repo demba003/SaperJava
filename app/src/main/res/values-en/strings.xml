@@ -8,4 +8,5 @@
     <string name="youlose">Game over</string>
     <string name="yourTime">Your playing time: </string>
     <string name="youwin">You win!</string>
+    <string name="easteregg">Lucky you! Game over xD</string>
 </resources>
