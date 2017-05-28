@@ -91,4 +91,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         planszaView.markAsBomb(x, y);
         return true;
     }
+
+    @Override
+    public void onDestroy(){
+        Plansza.clear();
+        super.onDestroy();
+    }
 }
