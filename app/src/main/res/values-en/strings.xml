@@ -5,7 +5,7 @@
     <string name="playAgain">Play Again</string>
     <string name="startGame">Start</string>
     <string name="time">Time: </string>
-    <string name="youlose">Game over</string>
+    <string name="youlose">You lost!</string>
     <string name="yourTime">Your playing time: </string>
     <string name="youwin">You won!</string>
     <string name="easteregg">Lucky you! Game over xD</string>

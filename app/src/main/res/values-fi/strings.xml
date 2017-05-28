@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Miinaharava</string>
+    <string name="easteregg">Onnenpekka! Peli ohi xD</string>
+    <string name="exitGame">Sulje peli</string>
+    <string name="playAgain">Pelaa vielä kerran</string>
+    <string name="startGame">Alku</string>
+    <string name="time">Aika:</string>
+    <string name="youlose">Hävisit!</string>
+    <string name="yourTime">Peliaikasi:</string>
+    <string name="youwin">Voitit!</string>
+</resources>
