@@ -7,10 +7,10 @@ import javalab.pk.saper.R;
  * Created by khaeemm on 27.04.2017.
  */
 
-public class PoleNumer extends Pole {
+public class FieldNumber extends Field {
     private int number;
 
-    public PoleNumer(int nr) {
+    public FieldNumber(int nr) {
         number = nr;
     }
 

@@ -24,12 +24,12 @@ public class EndActivity extends AppCompatActivity {
         int count = myintent.getIntExtra("timeCount",0);
         int wincond = myintent.getIntExtra("wincond",0);
 
-        TextView czas2 = (TextView) findViewById(R.id.czas2);
+        TextView time2 = (TextView) findViewById(R.id.time2);
         TextView win = (TextView) findViewById(R.id.win);
         Button start = (Button) findViewById(R.id.replay);
         Button exit = (Button) findViewById(R.id.exit1);
         String typ;
-        czas2.setText(MessageFormat.format("{0} {1}s", getString(R.string.yourTime), String.valueOf(count)));
+        time2.setText(MessageFormat.format("{0} {1}s", getString(R.string.yourTime), String.valueOf(count)));
         if(wincond>=30){
 
             win.setText(R.string.youwin);

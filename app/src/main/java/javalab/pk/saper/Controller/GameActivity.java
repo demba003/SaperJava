@@ -12,17 +12,17 @@ import android.widget.TextView;
 
 import java.text.MessageFormat;
 
-import javalab.pk.saper.Model.Bomba;
-import javalab.pk.saper.Model.Plansza;
-import javalab.pk.saper.Model.PustePole;
+import javalab.pk.saper.Model.Bomb;
+import javalab.pk.saper.Model.Board;
+import javalab.pk.saper.Model.BlankField;
 import javalab.pk.saper.R;
-import javalab.pk.saper.View.PlanszaView;
+import javalab.pk.saper.View.BoardView;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener,View.OnLongClickListener{
-    Plansza plansza;
-    PlanszaView planszaView;
+    Board board;
+    BoardView boardView;
 
-    TextView czas;
+    TextView time;
     int timeCount = 0;
 
     private Handler customHandler = new Handler();
@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Runnable updateTimerThread = new Runnable() {
         public void run() {
             timeCount++;
-            czas.setText(MessageFormat.format("{0} {1}", getString(R.string.time), String.valueOf(timeCount)));
+            time.setText(MessageFormat.format("{0} {1}", getString(R.string.time), String.valueOf(timeCount)));
             customHandler.postDelayed(this, 1000);
         }
     };
@@ -40,11 +40,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        czas = (TextView) findViewById(R.id.czas);
+        time = (TextView) findViewById(R.id.time);
 
-        plansza = Plansza.get(6, 6, 6);
-        planszaView = new PlanszaView(this, plansza, this, this);
-        plansza.setPlanszaView(planszaView);
+        board = Board.get(6, 6, 6);
+        boardView = new BoardView(this, board, this, this);
+        board.setBoardView(boardView);
     }
 
     @Override
@@ -53,16 +53,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int x = view.getId() / 10;
         int y = view.getId() % 10;
 
-        if(plansza.getField(x,y) instanceof PustePole) plansza.floodFill(x, y);
-        if(!plansza.getField(x,y).isOpened) plansza.open(x, y);
+        if(board.getField(x,y) instanceof BlankField) board.floodFill(x, y);
+        if(!board.getField(x,y).isOpened) board.open(x, y);
 
-        if (plansza.getField(x,y) instanceof Bomba || plansza.getOpened() >= 30){
+        if (board.getField(x,y) instanceof Bomb || board.getOpened() >= 30){
             Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
-            intentend.putExtra("wincond",plansza.getOpened());
+            intentend.putExtra("wincond", board.getOpened());
             intentend.putExtra("timeCount", timeCount);
             startActivity(intentend);
             finish();
-            Plansza.clear();
+            Board.clear();
         }
     }
 
@@ -88,13 +88,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(timeCount ==0) customHandler.postDelayed(updateTimerThread, 0);
         int x = view.getId() / 10;
         int y = view.getId() % 10;
-        planszaView.markAsBomb(x, y);
+        boardView.markAsBomb(x, y);
         return true;
     }
 
     @Override
     public void onDestroy(){
-        Plansza.clear();
+        Board.clear();
         super.onDestroy();
     }
 }

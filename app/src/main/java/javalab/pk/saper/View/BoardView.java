@@ -8,24 +8,24 @@ import android.widget.LinearLayout;
 
 import java.util.Vector;
 
-import javalab.pk.saper.Model.Plansza;
+import javalab.pk.saper.Model.Board;
 import javalab.pk.saper.R;
 
 
-public class PlanszaView {
+public class BoardView {
     private Vector<Vector<ImageButton>> buttons;
-    private Plansza plansza;
+    private Board board;
 
-    public PlanszaView(Activity activity, Plansza pl, View.OnClickListener onClickListener, View.OnLongClickListener onLongClickListener) {
-        plansza = pl;
+    public BoardView(Activity activity, Board pl, View.OnClickListener onClickListener, View.OnLongClickListener onLongClickListener) {
+        board = pl;
         buttons = new Vector<>();
 
         LinearLayout layout = (LinearLayout) activity.findViewById(R.id.game_layout);
 
-        for (int i = 0; i < plansza.getHeight(); i++) {
+        for (int i = 0; i < board.getHeight(); i++) {
             LinearLayout row = new LinearLayout(activity);
             buttons.add(new Vector<ImageButton>());
-            for (int j = 0; j < plansza.getWidth(); j++) {
+            for (int j = 0; j < board.getWidth(); j++) {
                 buttons.get(i).add(new ImageButton(activity));
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 p.weight = 1;
@@ -44,7 +44,7 @@ public class PlanszaView {
     }
 
     public void open(int x, int y) {
-        buttons.get(x).get(y).setImageResource(plansza.getField(x,y).action());
+        buttons.get(x).get(y).setImageResource(board.getField(x,y).action());
     }
 
     public void markAsBomb(int x, int y) {
