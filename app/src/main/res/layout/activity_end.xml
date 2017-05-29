@@ -30,7 +30,7 @@
             android:textSize="40sp" />
 
         <TextView
-            android:id="@+id/czas2"
+            android:id="@+id/time2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.07"

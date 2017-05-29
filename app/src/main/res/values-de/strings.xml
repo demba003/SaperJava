@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MineSweeper</string>
+    <string name="easteregg">Du Glückspilz! Game over xD</string>
+    <string name="exitGame">Verlassen</string>
+    <string name="playAgain">Spiel nochmal</string>
+    <string name="startGame">Start</string>
+    <string name="time">Zeit:</string>
+    <string name="youlose">Du hast verloren!</string>
+    <string name="yourTime">Ihre Spielzeit:</string>
+    <string name="youwin">Du hast gewonnen!</string>
+</resources>
