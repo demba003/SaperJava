@@ -57,6 +57,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(!board.getField(x,y).isOpened) board.open(x, y);
 
         if (board.getField(x,y) instanceof Bomb || board.getOpened() >= 30){
+            if (board.getField(x,y) instanceof Bomb) board.bombSetOpened();
             Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
             intentend.putExtra("wincond", board.getOpened());
             intentend.putExtra("timeCount", timeCount);

@@ -44,6 +44,10 @@ public class Board {
         return wincond;
     }
 
+    public void bombSetOpened(){
+        if (wincond >= 30) wincond = 29;
+    }
+
     public void open(int x, int y){
         getField(x,y).isOpened = true;
         wincond++;
