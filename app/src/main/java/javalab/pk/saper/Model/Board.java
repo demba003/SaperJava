@@ -27,6 +27,7 @@ public class Board {
     private int wincond = 0;
     private int width;
     private int height;
+    private int maxBombs;
 
     public int getWidth() {
         return width;
@@ -34,6 +35,10 @@ public class Board {
 
     public int getHeight() {
         return height;
+    }
+
+    public int getMaxBombs() {
+        return maxBombs;
     }
 
     public Field getField(int x, int y) {
@@ -45,7 +50,7 @@ public class Board {
     }
 
     public void bombSetOpened(){
-        if (wincond >= 30) wincond = 29;
+        if (wincond >= (width * height) - maxBombs) wincond = (width * height) - maxBombs - 1;
     }
 
     public void open(int x, int y){
@@ -57,6 +62,7 @@ public class Board {
     private Board(int w, int h, int maxBombs) {
         width = w;
         height = h;
+        this.maxBombs = maxBombs;
         board = new Vector<>();
         Random rnd = new Random();
 
