@@ -1,6 +1,7 @@
 package javalab.pk.saper.Controller;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
@@ -21,6 +22,7 @@ import javalab.pk.saper.View.BoardView;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener,View.OnLongClickListener{
     Board board;
     BoardView boardView;
+    MediaPlayer clickSound;
 
     TextView time;
     int timeCount = 0;
@@ -45,6 +47,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         board = Board.get(6, 6, 6);
         boardView = new BoardView(this, board, this, this);
         board.setBoardView(boardView);
+
+        clickSound = MediaPlayer.create(this, R.raw.click);
     }
 
     @Override
@@ -53,8 +57,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         int x = view.getId() / 10;
         int y = view.getId() % 10;
 
-        if(board.getField(x,y) instanceof BlankField) board.floodFill(x, y);
-        if(!board.getField(x,y).isOpened) board.open(x, y);
+        if(board.getField(x,y) instanceof BlankField) {
+            clickSound.start();
+            board.floodFill(x, y);
+        }
+        if(!board.getField(x,y).isOpened) {
+            clickSound.start();
+            board.open(x, y);
+        }
 
         if (board.getField(x,y) instanceof Bomb || board.getOpened() >= ((board.getWidth() * board.getHeight()) - board.getMaxBombs())){
             if (board.getField(x,y) instanceof Bomb) board.bombSetOpened();

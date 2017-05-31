@@ -3,6 +3,7 @@ package javalab.pk.saper.Controller;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -32,16 +33,20 @@ public class EndActivity extends AppCompatActivity {
         TextView win = (TextView) findViewById(R.id.win);
         Button start = (Button) findViewById(R.id.replay);
         Button exit = (Button) findViewById(R.id.exit1);
+        MediaPlayer winSound = MediaPlayer.create(this, R.raw.tada);
+        MediaPlayer sadSound = MediaPlayer.create(this, R.raw.sad1);
         String typ;
         time2.setText(MessageFormat.format("{0} {1}s", getString(R.string.yourTime), String.valueOf(count)));
-        if(wincond >= maxOpened){
 
+        if(wincond >= maxOpened){
+        winSound.start();
             win.setText(R.string.youwin);
             typ = getString(R.string.youwin);
         }
         else
         {
-            if(wincond < 2){
+            sadSound.start();
+            if(wincond<2){
                 win.setText(R.string.easteregg);
             }
             else{

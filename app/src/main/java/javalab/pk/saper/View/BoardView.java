@@ -2,6 +2,7 @@ package javalab.pk.saper.View;
 
 import android.app.Activity;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import java.util.Vector;
 
 import javalab.pk.saper.Model.Board;
 import javalab.pk.saper.R;
+
 
 
 public class BoardView {
@@ -45,6 +47,10 @@ public class BoardView {
 
     public void open(int x, int y) {
         buttons.get(x).get(y).setImageResource(board.getField(x,y).action());
+    }
+
+    public void playSound(MediaPlayer snd){
+        snd.start();
     }
 
     public void markAsBomb(int x, int y) {
