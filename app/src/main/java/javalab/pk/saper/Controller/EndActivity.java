@@ -13,17 +13,21 @@ import android.widget.TextView;
 
 import java.text.MessageFormat;
 
+import javalab.pk.saper.Model.Board;
 import javalab.pk.saper.R;
 
 public class EndActivity extends AppCompatActivity {
+    Board board;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
         Intent myintent = getIntent();
+        board = Board.get(6, 6, 6);
         int count = myintent.getIntExtra("timeCount",0);
         int wincond = myintent.getIntExtra("wincond",0);
+        int maxOpened = (board.getWidth() * board.getHeight()) - board.getMaxBombs();
 
         TextView time2 = (TextView) findViewById(R.id.time2);
         TextView win = (TextView) findViewById(R.id.win);
@@ -33,8 +37,9 @@ public class EndActivity extends AppCompatActivity {
         MediaPlayer sadSound = MediaPlayer.create(this, R.raw.sad1);
         String typ;
         time2.setText(MessageFormat.format("{0} {1}s", getString(R.string.yourTime), String.valueOf(count)));
-        if(wincond>=30){
-            winSound.start();
+
+        if(wincond >= maxOpened){
+        winSound.start();
             win.setText(R.string.youwin);
             typ = getString(R.string.youwin);
         }
@@ -49,6 +54,8 @@ public class EndActivity extends AppCompatActivity {
             }
             typ = getString(R.string.youlose);
         }
+
+        Board.clear();
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)

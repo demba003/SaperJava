@@ -66,13 +66,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             board.open(x, y);
         }
 
-        if (board.getField(x,y) instanceof Bomb || board.getOpened() >= 30){
+        if (board.getField(x,y) instanceof Bomb || board.getOpened() >= ((board.getWidth() * board.getHeight()) - board.getMaxBombs())){
+            if (board.getField(x,y) instanceof Bomb) board.bombSetOpened();
             Intent intentend = new Intent(getApplicationContext(), EndActivity.class);
             intentend.putExtra("wincond", board.getOpened());
             intentend.putExtra("timeCount", timeCount);
             startActivity(intentend);
             finish();
-            Board.clear();
         }
     }
 
